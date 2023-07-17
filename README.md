@@ -19,7 +19,7 @@
 - **typescript** 
 - **uuid** and **@types/uuid**
 
-После git clone 'link' установите все зависимости из package.json:
+установить все зависимости из package.json:
 ### `yarn`
 
 а потом запустите проект:
