@@ -1,0 +1,14 @@
+.item {
+    color: green;
+}
+
+.item img {
+    width: 60px;
+    height: 50px;
+    border-radius: 30px;
+}
+
+.content {
+    color: green;
+}
+
