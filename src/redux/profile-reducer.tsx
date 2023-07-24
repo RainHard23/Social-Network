@@ -16,18 +16,17 @@ type InitialProfilePage = {
 }
 
 let initialState:InitialProfilePage = {
-    newPostText: '',
     posts: [
         {id: 1, message: "hi", likesCount: 12},
         {id: 2, message: "hello", likesCount: 20},
     ],
+    newPostText: '',
     profile: null,
     status: ''
 }
 
 
 export type profileReducerProps = ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
 
@@ -38,12 +37,10 @@ export type profileReducerProps = ReturnType<typeof addPostAC>
          case 'ADD-POST':
              let newPost: PostType = {
                  id: 5,
-                 message: state.newPostText,
+                 message: action.newPostText,
                  likesCount: 0
              }
              return {...state, posts: [newPost,...state.posts], newPostText: ''}
-         case 'UPDATE-NEW-POST-TEXT':
-             return { ...state, newPostText: action.newText}
          case "SET-USER-PROFILE": {
              return {...state, profile: action.profile}
          }
@@ -76,16 +73,17 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 
 export const addPostAC = (newPostText: string) => {
     return {
-        type: "ADD-POST"
+        type: "ADD-POST",
+        newPostText
     } as const
 }
 
-export const changeNewTextAC = (newPostText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newPostText
-    } as const
-}
+// export const changeNewTextAC = (newPostText: string) => {
+//     return {
+//         type: "UPDATE-NEW-POST-TEXT",
+//         newText: newPostText
+//     } as const
+// }
 export const setUserStatus = (status: string) => {
     return {
         type: "SET__STATUS",

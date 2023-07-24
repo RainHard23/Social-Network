@@ -2,18 +2,32 @@ import React, {ChangeEvent, useRef} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {MapDispatchPostsType, MapStatePostsType} from "./MyPostsContainer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/Validators";
+import {FormControl} from "../../../Components/common/FormsControls/FormsControls";
+
 
 type ProfilePagePostProps = MapStatePostsType & MapDispatchPostsType
-    // {
-    // posts: PostType[]
-    // addPostCallBack: (postMessage: string) => void
-    // newPostText: string
-    // updateNewPostText: (newText: string) => void
-    // addPostAC?: () => void
-   // dispatch: (action: DispatchPropsType) => void
-// }
 
+const maxLength10 = maxLengthCreator(10)
+let AddNewPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field name='newPostText' component={FormControl}
+                       validate={[required, maxLength10]}
+                       elementType='textarea'
 
+                />
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+            <button>Remove</button>
+        </form>
+    )
+}
+let AddNewPostFormRedux = reduxForm<AddPostFormType>({form: "ProfileAddNewPostForm"}) (AddNewPostForm)
 
 const MyPosts = (props: ProfilePagePostProps) => {
     let postsElements = props.posts.map((p, index) =>
@@ -23,38 +37,26 @@ const MyPosts = (props: ProfilePagePostProps) => {
             likeCount={p.likesCount}/>)
 
 
-    let addPost = () => {
-
-            // props.addPostCallBack(props.newPostText)
-         props.addPostAC?.()
+    let addPost = (values: AddPostFormType) => {
+         props.addPostAC?.(values.newPostText)
     }
 
-    const onPostChange =(e: ChangeEvent<HTMLTextAreaElement>)=> {
-
-        props.updateNewPostText?.(e.currentTarget.value)
-        // props.updateNewPostText(e.currentTarget.value)
-        // props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value})
-    }
 
     return (
         <div className={s.mypostBlock}>
             <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea
-                        onChange={onPostChange}
-                        value={props.newPostText}/>
-                </div>
-                <div>
-                    <button onClick={addPost}>Add post</button>
-                </div>
-                <button>Remove</button>
-            </div>
+            <AddNewPostFormRedux onSubmit={addPost}/>
             <div className={s.posts}>
                 {postsElements}
             </div>
         </div>
     )
 }
+
+type AddPostFormType = {
+    newPostText: string
+}
+
+
 
 export default MyPosts;

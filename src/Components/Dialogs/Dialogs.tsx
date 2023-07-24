@@ -5,14 +5,14 @@ import {Message} from "./Message/Message";
 import {
     DialogPageType,
 } from "../../redux/store";
-import {AppStoreType} from "../../redux/redux-store";
-import {Redirect} from "react-router-dom";
+import AddMessageForm, {AddMessageType} from "../../Components/Dialogs/AddMessageForm/AddMessageForm";
 
-type ProfilePagePropsType ={
+
+
+type ProfilePagePropsType = {
     dialogsPage: DialogPageType
-    // dispatch: (action: DispatchPropsType) => void
-    addMessageBody: (body: string)=>void
-    sendMessage: ()=> void
+    addMessageBody: (body: string) => void
+    sendMessage: (values: string) => void
     isAuth: boolean
 }
 
@@ -21,19 +21,11 @@ export const Dialogs = (props: ProfilePagePropsType) => {
 
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElements = state.messages.map(m => <Message message={m.message}/>)
-    let newMessageBody = state.newMessageBody;
-    let onMessageClick = ()=> {
 
-    props.sendMessage()
+
+    const addNewMessage = (values: AddMessageType) => {
+        props.sendMessage(values.newMessageBody)
     }
-
-    let onNewMessageChange=(e: ChangeEvent<HTMLTextAreaElement>)=> {
-
-      let body = e.currentTarget.value
-        props.addMessageBody(body)
-    }
-
-    if (!props.isAuth)  return <Redirect to={'login'} />
 
 
     return (
@@ -44,14 +36,10 @@ export const Dialogs = (props: ProfilePagePropsType) => {
             <div className={s.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <div><textarea value={newMessageBody}
-                                   onChange={onNewMessageChange}
-                                   placeholder='message Enter pjlsta'></textarea></div>
-                    <div>
-                        <button onClick={onMessageClick}>Send</button>
-                    </div>
+                    <AddMessageForm onSubmit={addNewMessage}/>
                 </div>
             </div>
         </div>
     )
 }
+

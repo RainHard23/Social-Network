@@ -1,9 +1,9 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
-import thunk from "redux-thunk";
+import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
 
 
@@ -26,6 +26,7 @@ export type AppStateType = ReturnType<typeof reducers>
 console.log(store.getState().auth)
 
 export type AppStoreType = typeof store
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AnyAction>
 
 console.log (store)
 

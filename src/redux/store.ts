@@ -33,7 +33,6 @@ export type UsersLocationType = {
 export type DialogPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessageBody: string
 }
 
 
@@ -52,11 +51,12 @@ export type StorePropsType = {
     dispatch: (action: DispatchPropsType) => void
 }
 
-export const addPostAC = () => {
-    return {
-        type: "ADD-POST"
-    } as const
-}
+// export const addPostAC = () => {
+//     return {
+//         type: "ADD-POST",
+//
+//     } as const
+// }
 
 export const changeNewTextAC = (newPostText: string) => {
     return {
@@ -72,15 +72,16 @@ export const addMessageBody = (body: string) => {
     } as const
 }
 
-export const sendMessage = () => {
-    return {
-        type: 'SEND_MESSAGE'
-    } as const
-}
+// export const sendMessage = () => {
+//     return {
+//         type: 'SEND_MESSAGE'
+//     } as const
+// }
 
 
 
-export type DispatchPropsType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof addMessageBody> | ReturnType<typeof sendMessage>
+export type DispatchPropsType =   ReturnType<typeof changeNewTextAC> | ReturnType<typeof addMessageBody>
+    // | ReturnType<typeof sendMessage
 
 
 
@@ -112,7 +113,6 @@ const store:StorePropsType = {
             { id: 5, message: "Mort" },
             { id: 6, message: "Oracle" }
         ],
-        newMessageBody: ''
     },
 
 },
@@ -142,7 +142,7 @@ const store:StorePropsType = {
     dispatch(action) {
 
         // this._state.profilePage = profileReducer(this._state.profilePage, action as profileReducerProps)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action as dialogsReducerProps)
+        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action as dialogsReducerProps)
         // this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._callSubscriber()
 

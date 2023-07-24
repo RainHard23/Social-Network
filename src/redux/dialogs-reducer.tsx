@@ -1,6 +1,3 @@
-import {DialogPageType} from "./store";
-import {message} from "antd";
-
 let initialState = {
     dialogs: [
         { id: 1, name: "Pudge" },
@@ -17,23 +14,19 @@ let initialState = {
         { id: 4, message: "Slark" },
         { id: 5, message: "Mort" },
         { id: 6, message: "Oracle" }
-    ],
-    newMessageBody: ''
+    ]
 }
 
 
 
-export type dialogsReducerProps = ReturnType<typeof addMessageBody> | ReturnType<typeof sendMessage>
+export type dialogsReducerProps =  ReturnType<typeof sendMessage>
 const dialogsReducer = (state = initialState, action: dialogsReducerProps) => {
 
     switch (action.type) {
-        case "UPDATE_NEW_MESSAGE_BODY":
-            // state.newMessageBody = action.body;
-            return {...state, newMessageBody: action.body}
         case 'SEND_MESSAGE':
-            let body = state.newMessageBody;
+            let body = action.newMessageBody;
             // state.messages.push({id: 6, message: body});
-            return {...state, messages: [...state.messages,{id: 6, message: body}], newMessageBody : ''}
+            return {...state, messages: [...state.messages,{id: 6, message: body}]}
         default:
             return state
     }
@@ -43,16 +36,11 @@ const dialogsReducer = (state = initialState, action: dialogsReducerProps) => {
 
 
 
-export const addMessageBody = (body: string) => {
-    return {
-        type: 'UPDATE_NEW_MESSAGE_BODY',
-        body: body
-    } as const
-}
 
-export const sendMessage = () => {
+export const sendMessage = (newMessageBody: string) => {
     return {
-        type: 'SEND_MESSAGE'
+        type: 'SEND_MESSAGE',
+        newMessageBody
     } as const
 }
 export default dialogsReducer

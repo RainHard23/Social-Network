@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import {RouteComponentProps, withRouter } from "react-router-dom";
-
-import { withAuthRedirect } from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 // типизация параметров из URL
