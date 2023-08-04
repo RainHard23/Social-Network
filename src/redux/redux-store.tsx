@@ -5,6 +5,7 @@ import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
+import appReducer from "../redux/app-reducer";
 
 
 let reducers = combineReducers({
@@ -13,6 +14,7 @@ let reducers = combineReducers({
     users: usersReducer,
     auth: authReducer,
     form: formReducer,
+    app: appReducer
 })
 
 
@@ -29,6 +31,7 @@ export type AppStoreType = typeof store
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AnyAction>
 
 console.log (store)
-
+// @ts-ignore
+window.store = store;
 
 export default store

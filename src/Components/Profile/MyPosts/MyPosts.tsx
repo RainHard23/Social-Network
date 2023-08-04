@@ -29,7 +29,7 @@ let AddNewPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
 }
 let AddNewPostFormRedux = reduxForm<AddPostFormType>({form: "ProfileAddNewPostForm"}) (AddNewPostForm)
 
-const MyPosts = (props: ProfilePagePostProps) => {
+const MyPosts = React.memo((props: ProfilePagePostProps) => {
     let postsElements = props.posts.map((p, index) =>
         <Post
             key={index}
@@ -51,7 +51,7 @@ const MyPosts = (props: ProfilePagePostProps) => {
             </div>
         </div>
     )
-}
+})
 
 type AddPostFormType = {
     newPostText: string

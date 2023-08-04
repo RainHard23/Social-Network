@@ -1,4 +1,3 @@
-import { RootStateType, StorePropsType} from "./store";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
@@ -15,7 +14,7 @@ type InitialProfilePage = {
     status: string
 }
 
-let initialState:InitialProfilePage = {
+let initialState: InitialProfilePage = {
     posts: [
         {id: 1, message: "hi", likesCount: 12},
         {id: 2, message: "hello", likesCount: 20},
@@ -31,28 +30,28 @@ export type profileReducerProps = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserStatus>
 
 
- const profileReducer = (state = initialState, action:profileReducerProps) => {
+const profileReducer = (state = initialState, action: profileReducerProps) => {
 
-     switch (action.type) {
-         case 'ADD-POST':
-             let newPost: PostType = {
-                 id: 5,
-                 message: action.newPostText,
-                 likesCount: 0
-             }
-             return {...state, posts: [newPost,...state.posts], newPostText: ''}
-         case "SET-USER-PROFILE": {
-             return {...state, profile: action.profile}
-         }
-         case "SET__STATUS": {
-             return {
-                 ...state,
-                 status: action.status
-             }
-         }
-         default:
-             return state
-     }
+    switch (action.type) {
+        case 'ADD-POST':
+            let newPost: PostType = {
+                id: 5,
+                message: action.newPostText,
+                likesCount: 0
+            }
+            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
+        case "SET-USER-PROFILE": {
+            return {...state, profile: action.profile}
+        }
+        case "SET__STATUS": {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
+        default:
+            return state
+    }
 
 
 }

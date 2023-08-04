@@ -1,10 +1,13 @@
 import React from "react";
 import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
+import {Dispatch} from "redux";
+import {AppThunk} from "../../redux/redux-store";
 
 type HeaderPropsType = {
     isAuth: boolean;
     login: string;
+    logout: () => void
 };
 
 const Header: React.FC<HeaderPropsType> = (props) => {
@@ -14,7 +17,7 @@ const Header: React.FC<HeaderPropsType> = (props) => {
 
             <div className={s.loginBlock}>
                 {props.isAuth ?
-                    props.login
+                    <div>{props.login} - <button onClick={props.logout}>Log out</button> </div>
                  :
                     <NavLink to={"/login"}>Login</NavLink>
                 }
