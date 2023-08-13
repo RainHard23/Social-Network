@@ -3,15 +3,15 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow, requestUsers,
+    follow,
     InitialStateType,
+    requestUsers,
     setCurrentPage,
-    toggleIsFollowingProgress, unfollow,
-
+    toggleIsFollowingProgress,
+    unfollow,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {
     getCurrentPage,
@@ -83,7 +83,6 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    // withAuthRedirect,
     connect<MapStatePropsType, MapDispatchType, {}, AppStateType>(
         mapStateToProps,
         {
@@ -91,4 +90,4 @@ export default compose<React.ComponentType>(
             setCurrentPage, toggleIsFollowingProgress, getUsers: requestUsers
         }
     )
-) (UsersContainer)
+)(UsersContainer)

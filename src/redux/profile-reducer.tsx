@@ -1,5 +1,9 @@
-import {Dispatch} from "redux";
+import {Action, Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
+import {ProfileTypeProps} from "../Components/Profile/Profile";
+import {AppStateType, AppThunk} from "../redux/redux-store";
+import {ThunkAction} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
 export type PostType = {
     id: number
@@ -28,6 +32,8 @@ let initialState: InitialProfilePage = {
 export type profileReducerProps = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof savePhotoSuccess>
+
 
 
 const profileReducer = (state = initialState, action: profileReducerProps) => {
@@ -49,6 +55,12 @@ const profileReducer = (state = initialState, action: profileReducerProps) => {
                 status: action.status
             }
         }
+        case "SAVE__PHOTO__SUCCESS": {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
+        }
         default:
             return state
     }
@@ -56,18 +68,16 @@ const profileReducer = (state = initialState, action: profileReducerProps) => {
 
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: string) => {
     return {
         type: 'SET-USER-PROFILE',
         profile
     } as const
 }
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+    let response = await usersAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
 }
 
 export const addPostAC = (newPostText: string) => {
@@ -76,13 +86,6 @@ export const addPostAC = (newPostText: string) => {
         newPostText
     } as const
 }
-
-// export const changeNewTextAC = (newPostText: string) => {
-//     return {
-//         type: "UPDATE-NEW-POST-TEXT",
-//         newText: newPostText
-//     } as const
-// }
 export const setUserStatus = (status: string) => {
     return {
         type: "SET__STATUS",
@@ -90,21 +93,49 @@ export const setUserStatus = (status: string) => {
     } as const
 }
 
-export const getStatus = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(responce => {
-            dispatch(setUserStatus(responce.data))
-        })
+export const savePhotoSuccess = (photos: string) => {
+    return {
+        type: "SAVE__PHOTO__SUCCESS",
+        photos
+    } as const
 }
 
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(responce => {
+export const getStatus = (userId: string) => async (dispatch: Dispatch) => {
+    let responce = await profileAPI.getStatus(userId)
+    dispatch(setUserStatus(responce.data))
+}
+
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    let responce = await profileAPI.updateStatus(status)
             if (responce.data.resultCode === 0) {
                 dispatch(setUserStatus(status))
             }
-
-        })
 }
+
+export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
+    let responce = await profileAPI.savePhoto(file)
+    if (responce.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(responce.data.data.photos))
+    }
+}
+
+export const saveProfile = (profile: ProfileTypeProps): AppThunk => {
+    return async (dispatch, getState) => {
+        const userId = getState().auth.userId;
+
+            const response = await profileAPI.saveProfile(profile);
+
+            if (response.data.resultCode === 0) {
+                if (userId) {
+                    dispatch(getUserProfile(userId.toString())); // Преобразуйте userId в строку
+                }else {
+                    debugger
+                    dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
+                    return Promise.reject(response.data.messages[0])
+                }
+            }
+    };
+};
+
 
 export default profileReducer

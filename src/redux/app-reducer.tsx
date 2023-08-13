@@ -16,7 +16,6 @@ const appReducer = (state: InitialStateType = initialState, action: authReducerP
 
     switch (action.type) {
         case "INITIALIZED_SUCCESS":
-            console.log(action)
             return {
                 ...state,
                 initialized: true

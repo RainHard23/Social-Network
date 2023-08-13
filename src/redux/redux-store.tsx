@@ -25,12 +25,10 @@ let store = createStore(reducers, applyMiddleware(thunk))
 // export type AppStateType = typeof store.getState
 export type DispatchType = typeof store.dispatch
 export type AppStateType = ReturnType<typeof reducers>
-console.log(store.getState().auth)
 
 export type AppStoreType = typeof store
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AnyAction>
 
-console.log (store)
 // @ts-ignore
 window.store = store;
 
