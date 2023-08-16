@@ -1,4 +1,64 @@
-.userPhoto {
-    width: 100px;
-    height: 100px;
+/* Users.module.css */
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f8f8f8;
 }
+
+.userPhoto {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover; /* Улучшим визуальное отображение фото */
+}
+
+.userActions {
+    display: flex;
+    flex-direction: column;
+}
+
+.followButton,
+.unfollowButton {
+    background-color: #1877F2;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 5px;
+}
+
+.followButton:hover,
+.unfollowButton:hover {
+    background-color: #135EAC;
+}
+
+.userInfo {
+    flex-grow: 1;
+}
+
+.userName {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.userStatus {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.userLocation {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Add any other styles you need below this point */

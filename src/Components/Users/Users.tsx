@@ -2,7 +2,7 @@ import React from 'react';
 import {InitialStateType} from "../../redux/users-reducer";
 import Pagination from "../../Components/common/Pagination/Pagination";
 import User from "./User"
-
+import s from "./Users.module.css";
 
 type UsersPropsType = {
     follow: (userId: number) => void

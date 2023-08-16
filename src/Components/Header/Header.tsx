@@ -13,13 +13,15 @@ type HeaderPropsType = {
 const Header: React.FC<HeaderPropsType> = (props) => {
     return (
         <header className={s.header}>
-            <img src="https://android-obzor.com/wp-content/uploads/2022/03/23-8.jpg" alt="#" />
+            <img className={s.logo} src="https://android-obzor.com/wp-content/uploads/2022/03/23-8.jpg" alt="#" />
 
             <div className={s.loginBlock}>
                 {props.isAuth ?
-                    <div>{props.login} - <button onClick={props.logout}>Log out</button> </div>
-                 :
-                    <NavLink to={"/login"}>Login</NavLink>
+                    <div className={s.userInfo}>
+                        {props.login} - <button className={s.logoutButton} onClick={props.logout}>Log out</button>
+                    </div>
+                    :
+                    <NavLink className={s.loginLink} to={"/login"}>Login</NavLink>
                 }
             </div>
         </header>

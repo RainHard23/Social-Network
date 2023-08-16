@@ -1,16 +1,37 @@
 .header {
-    background-color: green;
+    background-color: #1877F2; /* Используем сине-белую цветовую палитру, напоминающую ВКонтакте */
+    padding: 10px 20px; /* Добавим немного внутренних отступов для выравнивания */
+    display: flex; /* Используем flexbox для центрирования содержимого */
+    justify-content: space-between; /* Распределяем содержимое по краям */
+    align-items: center; /* Выравниваем содержимое по вертикали */
 }
 
 .header img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px; /* Добавим немного отступа между логотипом и текстом */
 }
 
 .loginBlock {
-    float: right;
+    display: flex; /* Используем flexbox для выравнивания содержимого */
+    align-items: center; /* Выравниваем содержимое по вертикали */
 }
 
 .loginBlock a {
     color: white;
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    margin-right: 15px; /* Добавим немного отступа между ссылками */
+}
+
+.loginBlock button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.3s; /* Плавное изменение прозрачности при наведении */
+}
+
+.loginBlock button:hover {
+    opacity: 0.8;
 }

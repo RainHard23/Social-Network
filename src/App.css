@@ -1,17 +1,15 @@
+/* App.css */
 .app-wrapper {
-
+    font-family: Arial, sans-serif;
+    color: #555; /* Изменим цвет текста на более темный оттенок */
 }
 
 .main-block {
     display: flex;
     width: 100%;
     font-size: 25px;
-    background-color: deepskyblue;
+    background-color: #3498db; /* Изменим цвет фона на голубой */
+    padding: 20px; /* Добавим немного отступа для контента */
 }
 
-
-
-
-
-
-
+/* Add any other styles you need below this point */

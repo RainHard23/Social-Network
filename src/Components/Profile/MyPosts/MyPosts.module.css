@@ -1,12 +1,36 @@
-.content {
-    color: green;
+/* MyPosts.module.css */
+.addPostForm {
+    margin-bottom: 20px;
+}
+
+.addButton,
+.removeButton {
+    background-color: #1877F2;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.addButton:hover,
+.removeButton:hover {
+    background-color: #135EAC;
+}
+
+.myPostsHeader {
+    color: black;
+    margin-bottom: 10px;
 }
 
 .mypostBlock {
-    padding: 10px
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
 }
 
 .posts {
     margin-top: 10px;
 }
-

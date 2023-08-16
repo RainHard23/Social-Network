@@ -1,14 +1,23 @@
+/* Post.module.css */
 .item {
-    color: green;
+    color: #333; /* Цвет текста */
+    background-color: #f8f8f8; /* Фоновый цвет */
+    border: 1px solid #ccc; /* Рамка */
+    border-radius: 5px; /* Скругление углов */
+    padding: 10px; /* Внутренние отступы */
+    margin-bottom: 15px; /* Отступ снизу */
+    display: flex; /* Включаем флекс-распределение для содержимого */
+    align-items: center; /* Выравнивание элементов по вертикали */
 }
 
 .item img {
     width: 60px;
     height: 50px;
     border-radius: 30px;
+    margin-right: 10px; /* Отступ между текстом и изображением */
 }
 
-.content {
-    color: green;
+.likeCount {
+    color: #888; /* Цвет количества лайков */
+    margin-left: 10px; /* Отступ слева от количества лайков */
 }
-
